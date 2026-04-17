@@ -158,6 +158,27 @@ h3 {
   font-weight: 800;
 }
 
+.role-line {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.4rem;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.55rem;
+  font-weight: 700;
+}
+
+.role-line span {
+  color: #6ee7d8;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.role-line span.is-changing {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
 .hero-text {
   max-width: 650px;
   margin-bottom: 2rem;
@@ -221,10 +242,43 @@ h3 {
 
 .section-heading {
   max-width: 760px;
+  margin-inline: auto;
   margin-bottom: 3rem;
+  text-align: center;
+}
+
+.section-heading .eyebrow {
+  font-size: 2rem;
+}
+
+.section-heading h2 {
+  font-size: clamp(2.4rem, 4.8vw, 4rem);
 }
 
 .section-heading.mx-auto {
+  margin-inline: auto;
+}
+
+#about,
+#projects,
+#skills,
+#contact {
+  text-align: center;
+}
+
+#about .section-heading,
+#skills .section-heading,
+#contact .section-heading {
+  margin-inline: auto;
+}
+
+#skills .section-heading,
+#contact .section-heading {
+  text-align: center;
+}
+
+#about .btn,
+#contact .btn {
   margin-inline: auto;
 }
 
@@ -288,6 +342,7 @@ h3 {
 
 .service-body {
   padding: 1.5rem;
+  text-align: center;
 }
 
 .service-body i {
@@ -326,6 +381,7 @@ h3 {
 .skill-list {
   display: grid;
   gap: 1.25rem;
+  text-align: left;
 }
 
 .skill-item > div:first-child {
@@ -364,12 +420,17 @@ h3 {
 .contact-list {
   display: grid;
   gap: 1rem;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  text-align: left;
 }
 
 .contact-list a,
 .contact-list p {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 0.9rem;
   margin: 0;
   color: var(--ink);
@@ -415,6 +476,12 @@ textarea.form-control {
   resize: vertical;
 }
 
+.form-note {
+  margin: 0.9rem 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
 .footer {
   padding: 2rem 0;
   color: #fff;
@@ -446,6 +513,7 @@ textarea.form-control {
   }
 
   .hero-actions,
+  .role-line,
   .hero-section .social-links {
     justify-content: center;
   }
