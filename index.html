@@ -192,11 +192,10 @@ This is a personal portfolio website for Muhammad Sinan MP, built to present his
             </div>
           </div>
           <div class="col-lg-7">
-            <form class="contact-form" action="https://formsubmit.co/muhammadsinanmp5@gmail.com" method="POST">
+            <form class="contact-form" action="https://formsubmit.co/ajax/muhammadsinanmp5@gmail.com" method="POST">
               <input type="hidden" name="_subject" value="Portfolio Contact - Muhammad Sinan MP">
               <input type="hidden" name="_captcha" value="false">
               <input type="hidden" name="_template" value="table">
-              <input type="hidden" name="_next" id="formRedirect">
               <div class="row g-3">
                 <div class="col-md-6">
                   <label for="name" class="form-label">Name</label>
@@ -216,7 +215,7 @@ This is a personal portfolio website for Muhammad Sinan MP, built to present his
                 </div>
                 <div class="col-12">
                   <button type="submit" class="btn btn-primary">Send Message</button>
-
+                  <p class="form-note" id="formStatus" aria-live="polite"></p>
                 </div>
               </div>
             </form>
@@ -256,10 +255,37 @@ This is a personal portfolio website for Muhammad Sinan MP, built to present his
     }, 1600);
 
     const contactForm = document.querySelector(".contact-form");
-    const formRedirect = document.getElementById("formRedirect");
+    const formStatus = document.getElementById("formStatus");
 
-    contactForm.addEventListener("submit", function () {
-      formRedirect.value = `${window.location.href.split("#")[0]}#contact`;
+    contactForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const submitButton = contactForm.querySelector("button[type='submit']");
+      const formData = new FormData(contactForm);
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+      formStatus.textContent = "";
+
+      fetch(contactForm.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Accept": "application/json"
+        }
+      })
+        .then(function () {
+          contactForm.reset();
+          formStatus.textContent = "Message sent successfully.";
+          window.location.hash = "contact";
+        })
+        .catch(function () {
+          formStatus.textContent = "Please try again.";
+        })
+        .finally(function () {
+          submitButton.disabled = false;
+          submitButton.textContent = "Send Message";
+        });
     });
   </script>
 </body>
